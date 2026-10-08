@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Zimeng Wang (Simon), Ph.D. Candidate at Capital Medical University. Postdoctoral portfolio: FOCUS, GLANCE, DPI, VISION and Mirror-EYE; six publications, patents and English CV.">
-<title>Zimeng Wang (Simon) | Postdoctoral Research Portfolio V8</title>
+<meta name="description" content="Zimeng Wang (Simon), Ph.D. Candidate at Capital Medical University. Postdoctoral portfolio in soft bioelectronics, wearable sensing, biomechanics and translational healthcare.">
+<title>Zimeng Wang (Simon) | Postdoctoral Research Portfolio</title>
 <style>
 :root{
   --bg:#061016;--bg2:#0a151c;--panel:#0d1a22;--text:#f7f9fb;--muted:#9eb2be;
@@ -134,9 +134,21 @@ dialog{position:fixed;max-width:96vw;width:1100px;max-height:94vh;padding:0;bord
 @media(max-width:560px){.portrait-frame{width:180px;height:279px}.identity-row{gap:16px}}
 @media(max-width:360px){.portrait-frame{width:160px;height:248px}.identity-row{gap:12px}}
 @media(prefers-reduced-motion:reduce){*,*:after{animation:none!important;scroll-behavior:auto!important}}
+</style>
+<style id="portfolio-v9-style">
+  /* V9: keep public claims tied to published work; present next-stage work as research interests. */
+  #research-interests .interest-intro{max-width:760px;font-size:18px;line-height:1.7;color:var(--muted);margin:0 0 28px}
+  #research-interests .interest-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  #research-interests .interest-card{background:linear-gradient(145deg,rgba(18,48,61,.78),rgba(10,25,34,.92));border:1px solid var(--line);border-radius:14px;padding:26px;min-height:215px}
+  #research-interests .interest-card h3{margin:9px 0 12px;font-size:23px;line-height:1.25}
+  #research-interests .interest-card p{color:var(--muted);margin:0;line-height:1.65}
+  #research-interests .focus-summary{margin-top:34px;border-left:3px solid var(--cyan);padding:5px 0 5px 22px;max-width:880px}
+  #research-interests .focus-summary h3{margin:6px 0 8px;font-size:22px}
+  #research-interests .focus-summary p{color:var(--muted);margin:0;line-height:1.65}
+  @media(max-width:720px){#research-interests .interest-grid{grid-template-columns:1fr}#research-interests .interest-intro{font-size:16px}}
 </style></head>
 <body>
-<nav><div class="wrap nav"><a class="brand" href="#home">Zimeng Wang <span>(Simon)</span></a><div class="links"><a href="#trajectory">Trajectory</a><a href="#research">Research</a><a href="#publications">Publications</a><a href="#patent">Patents</a><a href="#translation">Translation</a><a class="keep" href="#contact">Contact</a></div></div></nav>
+<nav><div class="wrap nav"><a class="brand" href="#home">Zimeng Wang <span>(Simon)</span></a><div class="links"><a href="#research-interests">Research Interests</a><a href="#publications">Publications</a><a href="#patent">Patents</a><a href="#experience">Experience</a><a class="keep" href="#contact">Contact</a></div></div></nav>
 
 <main>
 
@@ -316,6 +328,35 @@ motion.addEventListener('click',()=>{paused=!paused;setMotion()});
 document.querySelectorAll('a[data-download]').forEach(a=>a.addEventListener('click',event=>{
  event.preventDefault();const uri=a.href;const split=uri.indexOf(',');const mime=uri.slice(5,uri.indexOf(';'));const bytes=Uint8Array.from(atob(uri.slice(split+1)),c=>c.charCodeAt(0));const blob=new Blob([bytes],{type:mime});const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download=a.download;document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);
 }));
+/* V9 content revision — removes unpublished project chapters from the public portfolio. */
+(function(){
+  const trajectory=document.getElementById('trajectory');
+  if(trajectory) trajectory.remove();
+  const research=document.getElementById('research');
+  if(research){
+    research.id='research-interests';
+    research.innerHTML=`<div class="wrap">
+      <div class="secHead"><h2>Research Directions &amp; Interests</h2><div class="note">The questions I am preparing to pursue during postdoctoral training.</div></div>
+      <p class="interest-intro">I am interested in how soft bioelectronic interfaces can turn subtle human biomechanics into useful, interpretable signals for personalized and clinically relevant healthcare. My future work will build from published sensor research toward rigorous, collaborative studies of wearable monitoring and assistive systems.</p>
+      <div class="interest-grid">
+        <article class="interest-card"><div class="eyebrow">01 · Soft bioelectronics</div><h3>Mechanics-aware sensor interfaces</h3><p>Designing conformal, stretchable and high-sensitivity bioelectronic devices that remain reliable during natural body motion and long-term wear.</p></article>
+        <article class="interest-card"><div class="eyebrow">02 · Wearable sensing</div><h3>Human biomechanics in everyday settings</h3><p>Studying how wearable sensors can capture subtle biomechanical signals, with attention to placement, comfort, repeatability and real-world use.</p></article>
+        <article class="interest-card"><div class="eyebrow">03 · Computational phenotyping</div><h3>Interpretable functional signals</h3><p>Developing transparent approaches for transforming longitudinal sensor data into individual baselines and clinically meaningful functional measures.</p></article>
+        <article class="interest-card"><div class="eyebrow">04 · Healthcare translation</div><h3>Monitoring and assistive rehabilitation</h3><p>Working with clinical and engineering collaborators to connect wearable bioelectronics with patient-centered monitoring, assessment and rehabilitation technologies.</p></article>
+      </div>
+      <div class="focus-summary"><div class="eyebrow">Selected published research</div><h3>FOCUS — soft strain-sensor architecture</h3><p>My published work on FOCUS investigates a four-in-one liquid-metal strain sensor with a 2D-to-3D architecture for enhanced sensitivity. It provides the device-level foundation for my broader interest in soft, mechanics-aware biointerfaces.</p><div class="metrics"><span class="metric">Advanced Science · 2026</span><span class="metric">First author</span><span class="metric">Flexible sensing</span></div></div>
+    </div>`;
+  }
+  const translation=document.getElementById('translation');
+  if(translation) translation.remove();
+  document.querySelectorAll('.journey a').forEach(link=>{link.href='#research-interests';});
+  const heroJourney=document.querySelector('.journey');
+  if(heroJourney){heroJourney.innerHTML='<a href="#research-interests"><b>SOFT INTERFACES</b><small>Mechanics-aware sensing</small></a><a href="#research-interests"><b>WEARABLE SYSTEMS</b><small>Human biomechanics</small></a><a href="#research-interests"><b>FUNCTIONAL DATA</b><small>Interpretable measures</small></a><a href="#research-interests"><b>TRANSLATION</b><small>Healthcare collaboration</small></a>';}
+  const heroLede=document.querySelector('.lede');
+  if(heroLede) heroLede.textContent='I develop soft bioelectronic interfaces for subtle human biomechanics and am seeking postdoctoral collaborations in wearable sensing, interpretable functional monitoring and translational healthcare.';
+  document.querySelectorAll('.badges').forEach(b=>b.innerHTML='<span class="badge">Flexible Bioelectronics</span><span class="badge">Wearable Sensing</span><span class="badge">Human Biomechanics</span><span class="badge">Translational Healthcare</span>');
+  document.querySelectorAll('.footer-inner span:last-child').forEach(s=>s.textContent='Postdoctoral Research Portfolio · V9');
+}());
 </script></body>
 
 </html>
